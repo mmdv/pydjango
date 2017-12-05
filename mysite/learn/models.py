@@ -34,3 +34,28 @@ class course(models.Model):
     # 一大坑
     def __str__(self):
         return self.name
+
+# 往期回顾信息表
+class history(models.Model):
+    id = models.AutoField(max_length=11, primary_key=True)
+    name = models.CharField(max_length=30)
+    companyname = models.CharField(max_length=30 )   #从客户库获取公司名 ??
+    filtertype = models.CharField(max_length=30)  #筛选辨别标识
+    top = models.CharField(max_length=6)
+    couseid = models.CharField(max_length=30)  # 课程库id
+    teacherid = models.IntegerField() #讲师id
+    time = models.CharField(max_length=20) #时间
+    imgurl = models.CharField(max_length=300)
+    imgurll = models.CharField(max_length=30)
+    # 一大坑
+    def __str__(self):
+        return self.name
+
+#客户反馈表
+class feedback(models.Model):
+    id = models.AutoField(max_length=11, primary_key=True)
+    companyname = models.CharField(max_length=30 )   #从客户库获取公司名 ??
+    evaluator = models.CharField(max_length=30)  #评价者姓名
+    content = models.TextField()    #评价内容
+    time = models.CharField(max_length=30) #时间
+

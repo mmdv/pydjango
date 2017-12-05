@@ -23,5 +23,9 @@ urlpatterns = [
     url(r'^$', learn_views.index, name='index'),
     url(r'^admin/', admin.site.urls),
     url(r'^insert$',learn_views.insert,name='insert'),
-    url(r'^select$',learn_views.select,name='select'),
+    url(r'^select_course$',learn_views.select_course,name='select_course'),
+    url(r'^select_history$',learn_views.select_history,name='select_histroy'),
+    url(r'^select_company$',learn_views.select_company,name='select_company'),
+    url(r'^select_message$',learn_views.select_message,name='select_message'),
+    url(r'^select_pic$',learn_views.select_pic,name='select_pic'),
 ]

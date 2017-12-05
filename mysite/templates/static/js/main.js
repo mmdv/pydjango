@@ -8,8 +8,9 @@ jQuery(document).ready(function($) {
   // };|
   var course0;
   // 写一个克隆course
+  // 课程报名的请求
   $.ajax({
-    url: '/select',
+    url: '/select_course',
     type: 'post',
     dataType: 'json',
     async:false,
@@ -17,6 +18,10 @@ jQuery(document).ready(function($) {
   .done(function(data) {
     console.log(typeof(data));
     course0 = data[0];
+    course1 = data[1];
+    course2 = data[2];
+    course3 = data[3];
+    console.log(data[1])
     // console.log(data[0].imgurl);        //1
     // console.log("success"+data[0]);
     // $.each(data[0], function(index, val) {
@@ -26,6 +31,53 @@ jQuery(document).ready(function($) {
     // });
     // console.log(course0.id);
   });
+
+  var company_name = [];
+  var history = [];
+  var pics;
+  // 最近5期回顾公司名称
+  $.ajax({
+    url: 'select_company',
+    type:'post',
+    dataType: 'json',
+    async:false,
+  })
+  .done(function(data) {
+    history = data;
+  })
+  .fail(function() {
+    console.log("error");
+  })
+  .always(function() {
+    console.log("complete");
+  });
+  
+
+  // 请求往期回顾默认图片列
+  $.ajax({
+    url: 'select_pic',
+    type:'post',
+    dataType: 'json',
+    async:false,
+  })
+  .done(function(data){
+    console.log(data);
+    pics = getImgUrl(data[0]['imgurl']);
+  })
+  .fail(function() {
+    console.log("error");
+  })
+  .always(function() {
+    console.log("complete");
+  });
+
+  function getImgUrl(imgurl){
+    var temp  = [];
+    temp = imgurl.split(';');
+    console.log(temp)
+    return temp;
+  }
+  
   // VUE
   var ll = '课程11';
     new Vue({
@@ -38,9 +90,16 @@ jQuery(document).ready(function($) {
       // }
       // imgUrl: 'static/img/portfolio_item_01.jpg'
       course0: course0,
+      course1: course1,
+      course2: course2,
+      course3: course3,
       imgUrl1: 'static/img/service_icon_02.png',
       imgUrl2: 'static/img/service_icon_03.png',
       imgUrl3: 'static/img/service_icon_04.png',
+      history: history,
+      pics:pics,
+      // company_name:company_name,
+
     }
   })
 
