@@ -11,7 +11,7 @@ class register(models.Model):
     count = models.IntegerField()
     courseid = models.IntegerField()
 
-
+# 课程表
 class course(models.Model):
     id = models.AutoField(max_length=11, primary_key=True)
     name = models.CharField(max_length=30)
@@ -59,3 +59,34 @@ class feedback(models.Model):
     content = models.TextField()    #评价内容
     time = models.CharField(max_length=30) #时间
 
+#讲师表
+class lecturer(models.Model):
+    id = models.AutoField(max_length=11,primary_key=True)
+    name = models.CharField(max_length=30)
+    brief = models.TextField(max_length=140)  # 讲师简介
+    motto = models.TextField(max_length=100) #讲师座右铭
+    top = models.CharField(max_length=6) #是否置顶
+    courseid = models.CharField(max_length=10)  # 课程库id
+    imgurl = models.CharField(max_length=300)
+    content = models.TextField(max_length=140)
+    phone = models.IntegerField()
+    email = models.CharField(max_length=30)
+    fileurl = models.CharField(max_length=300)
+    price = models.IntegerField()
+
+    # 一大坑
+    def __str__(self):
+        return self.name
+
+#留言表
+class message(models.Model):
+    id = models.AutoField(max_length=11, primary_key=True)
+    name = models.CharField(max_length=30) #姓名
+    phone = models.IntegerField()#电话
+    companyname = models.TextField(max_length=30)  # 公司
+    email = models.TextField(max_length=30)  # 邮箱
+    message = models.TextField(max_length=300)  #留言内容
+
+    # 一大坑
+    def __str__(self):
+        return self.name

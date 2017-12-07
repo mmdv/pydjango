@@ -932,55 +932,55 @@ jQuery(document).ready(function($){
 
                 // BIND FILTER CLICK HANDLERS
 
-                $(config.filterSelector).bind(config.buttonEvent,function(){
+                // $(config.filterSelector).bind(config.buttonEvent,function(){
                 
-                    if(!config.mixing){
+                //     if(!config.mixing){
                         
-                        var $t = $(this);
+                //         var $t = $(this);
                         
-                        // PARSE FILTER ARGUMENTS FROM BUTTON CLASSES
+                //         // PARSE FILTER ARGUMENTS FROM BUTTON CLASSES
         
-                        if(config.multiFilter == false){
+                //         if(config.multiFilter == false){
                             
-                            // SINGLE ACTIVE BUTTON
+                //             // SINGLE ACTIVE BUTTON
                             
-                            $(config.filterSelector).removeClass('active');
-                            $t.addClass('active');
+                //             $(config.filterSelector).removeClass('active');
+                //             $t.addClass('active');
                         
-                            config.filter = $t.attr('data-filter');
+                //             // config.filter = $t.attr('data-filter');
                         
-                            $(config.filterSelector+'[data-filter="'+config.filter+'"]').addClass('active');
+                //             // $(config.filterSelector+'[data-filter="'+config.filter+'"]').addClass('active');
 
-                        } else {
+                //         } else {
                         
-                            // MULTIPLE ACTIVE BUTTONS
+                //             // MULTIPLE ACTIVE BUTTONS
                             
-                            var thisFilter = $t.attr('data-filter'); 
+                //             var thisFilter = $t.attr('data-filter'); 
                         
-                            if($t.hasClass('active')){
-                                $t.removeClass('active');
+                //             if($t.hasClass('active')){
+                //                 $t.removeClass('active');
                                 
-                                // REMOVE FILTER FROM SPACE-SEPERATED STRING
+                //                 // REMOVE FILTER FROM SPACE-SEPERATED STRING
                                 
-                                var re = new RegExp('(\\s|^)'+thisFilter);
-                                config.filter = config.filter.replace(re,'');
-                            } else {
+                //                 var re = new RegExp('(\\s|^)'+thisFilter);
+                //                 config.filter = config.filter.replace(re,'');
+                //             } else {
                                 
-                                // ADD FILTER TO SPACE-SEPERATED STRING
+                //                 // ADD FILTER TO SPACE-SEPERATED STRING
                                 
-                                $t.addClass('active');
-                                config.filter = config.filter+' '+thisFilter;
+                //                 $t.addClass('active');
+                //                 config.filter = config.filter+' '+thisFilter;
                                 
-                            };
-                        };
+                //             };
+                //         };
                         
-                        // GO MIX
+                //         // GO MIX
                         
-                        goMix(config.filter, null, null, $cont, config);
+                //         goMix(config.filter, null, null, $cont, config);
 
-                    };
+                //     };
                 
-                });
+                // });
                     
             });
         },

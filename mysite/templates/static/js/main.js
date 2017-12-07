@@ -1,11 +1,4 @@
 jQuery(document).ready(function($) {
-  // 获取课程信息
-  // var course0  = {
-  //   id:'',
-  //   name:'',
-  //   brief:'',
-  //   imgurl:'',
-  // };|
   var course0;
   // 写一个克隆course
   // 课程报名的请求
@@ -22,19 +15,15 @@ jQuery(document).ready(function($) {
     course2 = data[2];
     course3 = data[3];
     console.log(data[1])
-    // console.log(data[0].imgurl);        //1
-    // console.log("success"+data[0]);
-    // $.each(data[0], function(index, val) {
-    //     iterate through array or object 
-    //    // alert('index'+index,+','+'val'+val);
-    //    course0.index =  val;
-    // });
-    // console.log(course0.id);
   });
 
   var company_name = [];
   var history = [];
   var pics;
+  var course_default;//首次默认课程名
+  var feedback;
+  var lecturer;
+
   // 最近5期回顾公司名称
   $.ajax({
     url: 'select_company',
@@ -44,12 +33,6 @@ jQuery(document).ready(function($) {
   })
   .done(function(data) {
     history = data;
-  })
-  .fail(function() {
-    console.log("error");
-  })
-  .always(function() {
-    console.log("complete");
   });
   
 
@@ -62,13 +45,11 @@ jQuery(document).ready(function($) {
   })
   .done(function(data){
     console.log(data);
+    course_default = data[0]['name'];
     pics = getImgUrl(data[0]['imgurl']);
   })
   .fail(function() {
     console.log("error");
-  })
-  .always(function() {
-    console.log("complete");
   });
 
   function getImgUrl(imgurl){
@@ -77,7 +58,43 @@ jQuery(document).ready(function($) {
     console.log(temp)
     return temp;
   }
+
+  // 客户评论
+  $.ajax({
+    url: 'select_message',
+    type: 'post',
+    dataType: 'json',
+    async:false,
+  })
+  .done(function(data) {
+    feedback = data;
+    console.log(feedback);
+    console.log("success");
+  });
+
+  // 讲师风采
+  $.ajax({
+    url: '/select_lec',
+    type: 'POST',
+    dataType: 'json',
+    async:false,
+  })
+  .done(function(data) {
+    $.each(data, function(index, val) {
+       /* iterate through array or object */
+       data[index]['id'] = 'tab' + (index + 1);
+       data[index]['motto'] = '"' + data[index]['motto'] + '"';
+    });
+    lecturer = data;
+    console.log(data)
+    console.log(lecturer[0]['motto']);
+  })
+  .fail(function() {
+    console.log("error");
+  });
   
+  
+
   // VUE
   var ll = '课程11';
     new Vue({
@@ -93,12 +110,11 @@ jQuery(document).ready(function($) {
       course1: course1,
       course2: course2,
       course3: course3,
-      imgUrl1: 'static/img/service_icon_02.png',
-      imgUrl2: 'static/img/service_icon_03.png',
-      imgUrl3: 'static/img/service_icon_04.png',
       history: history,
       pics:pics,
-      // company_name:company_name,
+      course_default:course_default,
+      feedback:feedback,
+      lecturer:lecturer,
 
     }
   })
@@ -126,6 +142,7 @@ jQuery(document).ready(function($) {
         $('.btn-primary').bind('click',function(event) {
              event.stopPropagation();
           /* Act on the event */
+          // 获取所有input值
           var valArr = $('input[name=textfield2]').map(function(){return $(this).val()}).get();
           console.log(typeof(valArr))
           console.log(valArr);
@@ -154,13 +171,84 @@ jQuery(document).ready(function($) {
           }
         }
 
+        $('.company_list').on('click', function(event) {
+          event.preventDefault();
+          // 删除样式
+          $('.project-filter li li').removeClass('active');
+          $(this).parent().addClass('active');
+          $.ajax({
+            url: '/select_click',
+            type: 'POST',
+            dataType: 'json',
+            async:false,
+            data: {id: $(this).attr('id')},
+          })
+          .done(function(data) {
+            // 删除原元素
+               var temp,temp_pic;
+               temp = $('.col-md-8 .projects-holder .row');
+               // 删除元素
+               temp.empty();
+            // 修改课程信息
+            $('#course_id').text(data[0]['name']);
 
+            $.each(getImgUrl(data[0]['imgurl']), function(index, val) {
 
+               /* iterate through array or object */
+                strhtml = '<div class="col-md-6 col-sm-6 project-item mix ' + data[0]['filtertype'] + '" >';
+                strhtml += '<div class="thumb">';
+                strhtml += '<div class="image">';
+                strhtml += '<a href="static/img/portfolio_big_item_02.jpg" data-lightbox="image-1"><img src="' + val + '"></a>';
+                strhtml += '</div>';
+                strhtml += '</div>';
+                strhtml += '</div>';
+                temp.append(strhtml);
+                // 增加样式
+                temp.children().fadeIn('slow');
+            });
+            console.log("success");
+          })
+          .fail(function(XMLHttpRequest, textStatus, errorThrown) {
+             console.log(XMLHttpRequest.status);
+             console.log(XMLHttpRequest.readyState);
+             console.log(textStatus);
+            console.log("error");
+          });
+        });
 
+          // 更改讲师姓名列锚点,绑定单击事件
+          $.each($('.wrapper div div ul li a'), function(index, val) {
+             /* iterate through array or object */
+             $(this).attr('href', '#tab' + (index + 1));
+             $(this).click(function(event) {
+               /* Act on the event */
+               // 对应motto
+               $('#motto').text(lecturer[index]['motto']);
+             });
+          });
 
+          // 留言事件
+          $('#leave_message').click(function(event) {
+            /* Act on the event */
+            var leave_mess;
+            leave_mess = $('input[class=form-control]').map(function(){return $(this).val()}).get();
+            
+            leave_mess.push($('#message').val());
+            leave_mess = JSON.stringify(leave_mess);
+            console.log(leave_mess);
+            // 验证
 
-
-
+            // 存储信息
+            $.ajax({
+              url: 'insert_message',
+              type: 'POST',
+              dataType: 'json',
+              data: {leave_mess: leave_mess},
+            })
+            .done(function() {
+              console.log("success");
+            });
+          });
 
 
 

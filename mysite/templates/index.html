@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Tinker CSS Template</title>
+        <title>Joy And Share</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
@@ -37,7 +37,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a href="#" class="navbar-brand scroll-top"><em>T</em>inker</a>
+                        <a href="#" class="navbar-brand scroll-top"><em>J</em>&s</a>
                     </div>
                     <!--/.navbar-header-->
                     <div id="main-nav" class="collapse navbar-collapse">
@@ -201,14 +201,14 @@
                             <div class="section-heading">
                                 <h4>往期回顾</h4>
                                 <div class="line-dec"></div>
-                                <p>移动互联网背景下的商业模式与创新思维</p>
+                                <p v-html="course_default" id="course_id"></p>
                                 <div class="filter-categories">
                                     <ul class="project-filter">
                                         <li>
                                             <ul v-for="value in history">
                                                 <li class="filter" :data-filter="value.filtertype">
                                                     <!-- <span v-html="comname.companyname"></span> -->
-                                                    <span v-html="value.companyname"></span>
+                                                    <span v-html="value.companyname" :id="value.id" class="company_list"></span>
                                                 </li>
                                             </ul>
                                         </li>
@@ -231,7 +231,7 @@
                                                 <!-- </div> -->
                                           <!-- </div> -->
                                         <!-- </div> -->
-                                        <div class="col-md-6 col-sm-6 project-item mix nature" v-for="val in pics">
+                                        <div class="col-md-6 col-sm-6 project-item mix all" v-for="val in pics">
                                           <div class="thumb">
                                                 <div class="image">
                                                     <a href="static/img/portfolio_big_item_02.jpg" data-lightbox="image-1"><img :src="val"></a>
@@ -253,14 +253,14 @@
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
                         <div id="owl-testimonials" class="owl-carousel owl-theme">
-                            <div class="item">
+                            <div class="item" v-for="fd_val in feedback">
                                 <div class="testimonials-item">
-                                    <p>“ 客户留言 ”</p>
-                                    <h4>George Rich</h4>
-                                    <span>上汽大众</span>
+                                    <p v-html="fd_val.content"></p>
+                                    <h4 v-html="fd_val.companyname"></h4>
+                                    <span v-html="fd_val.evaluator"></span>
                                 </div>
                             </div>
-                            <div class="item">
+                           <!--  <div class="item">
                                 <div class="testimonials-item">
                                     <p>“ Phasellus orci nisi, varius sed lacinia et, pulvinar quis est. Curabitur a tincidunt tortor. Cras rhoncus sodales massa sagittis malesuada. Nulla maximus vitae lorem vel elementum. ”</p>
                                     <h4>John Henry</h4>
@@ -280,7 +280,7 @@
                                     <h4>Richard Beal</h4>
                                     <span>CSS Developer</span>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -295,26 +295,26 @@
                             <div class="section-heading">
                                 <h4>讲师采风</h4>
                                 <div class="line-dec"></div>
-                                <p>Chia hot chicken la croix ugh dreamcatcher man bun squid vaporware kinfolk.</p>
+                                <p id="motto" v-html="lecturer[0].motto"></p>
                                 <ul class="tabs clearfix" data-tabgroup="first-tab-group">
-                                    <li><a href="#tab1" class="active">Lorem ipsum dolor sit</a></li>
-                                    <li><a href="#tab2">Quisque ultricies maximus</a></li>
-                                    <li><a href="#tab3">Sed vel elit et lorem</a></li>
-                                    <li><a href="#tab4">Vivamus purus neque</a></li>
+                                    <!-- <li><a href="#tab1" class="active">Lorem ipsum dolor sit</a></li> -->
+                                    <!-- <li><a href="#tab2">Quisque ultricies maximus</a></li> -->
+                                    <!-- <li><a href="#tab3">Sed vel elit et lorem</a></li> -->
+                                    <li v-for="val in lecturer"><a :href="val.id" v-html="val.name"></a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="col-md-8">
                             <section id="first-tab-group" class="tabgroup">
-                                <div id="tab1">
-                                    <img src="static/img/blog_item_01.jpg" alt="">
+                                <div v-for="val in lecturer" :id="val.id">
+                                    <img :src="val.imgurl" alt="">
                                     <div class="text-content">
-                                        <h4>Lorem ipsum dolor sit amet</h4>
+                                        <h4 v-html="val.name"></h4>
                                         <span><a href="#">Digital Marketing</a> / <a href="#">John</a> / <a href="#">22 September 2017</a></span>
-                                        <p>Sed sed elementum diam. Nunc vehicula leo et ante dapibus tincidunt. Praesent fringilla mauris gravida enim laoreet, eu cursus erat dignissim. Praesent lacinia, nisi in suscipit commodo, risus elit viverra neque, ut pretium eros turpis vel enim. Maecenas vitae lacus purus.</p>
+                                        <p v-html="val.brief"></p>
                                     </div>
                                 </div>
-                                <div id="tab2">
+                               <!--  <div id="tab2">
                                     <img src="static/img/blog_item_02.jpg" alt="">
                                     <div class="text-content">
                                         <h4>Quisque ultricies maximus</h4>
@@ -337,7 +337,7 @@
                                         <span><a href="#">E-Commerce</a> / <a href="#">John</a> / <a href="#">12 August 2017</a></span>
                                         <p>Aliquam erat volutpat. Nulla at nunc nec ante rutrum congue id in diam. Nulla at lectus non turpis placerat volutpat lacinia ut mi. Quisque ultricies maximus justo a blandit. Donec sit amet commodo arcu. Sed sit amet iaculis mi, vel fermentum nisi. Morbi dui enim, vestibulum non accumsan ac, tempor non nisl.</p>
                                     </div>
-                                </div>
+                                </div> -->
                             </section>
                         </div>
                     </div>
@@ -354,7 +354,7 @@
                             <div class="line-dec"></div>
                             <p>Donec sit amet commodo arcu. Sed sit amet iaculis mi, vel fermentum nisi. Morbi dui enim, vestibulum non accumsan ac, tempor non nisl.</p>
                             <div class="pop-button">
-                                <h4>Send us a message</h4>
+                                <h4>给我留言</h4>
                             </div>
                         </div>
                     </div>
@@ -372,6 +372,16 @@
                                     </div>
                                     <div class="col-md-12">
                                       <fieldset>
+                                        <input name="phone" type="text" class="form-control" id="phone" placeholder="Your phone..." required="">
+                                      </fieldset>
+                                    </div>
+                                    <div class="col-md-12">
+                                      <fieldset>
+                                        <input name="company_name" type="text" class="form-control" id="company_name" placeholder="Your company name..." required="">
+                                      </fieldset>
+                                    </div>
+                                    <div class="col-md-12">
+                                      <fieldset>
                                         <input name="email" type="email" class="form-control" id="email" placeholder="Your email..." required="">
                                       </fieldset>
                                     </div>
@@ -382,7 +392,8 @@
                                     </div>
                                     <div class="col-md-12">
                                       <fieldset>
-                                        <button type="submit" id="form-submit" class="btn">Send Message</button>
+                                        <button id="leave_message" type="button" class="btn">提交</button>
+                                        <!-- <div id="form-submit" class="btn"></> -->
                                       </fieldset>
                                     </div>
                                 </div>
@@ -400,17 +411,17 @@
                 <div class="row">
                     <div class="col-md-4 col-sm-12">
                         <div class="logo">
-                            <a href="#" class="scroll-top"><em>T</em>inker</a>
-                            <p>Copyright &copy; 2017 Your Company 
-                          | More Templates <a href="http://www.j-and-s.cn" target="_blank" title="杰升咨询">杰升咨询</a> - Collect from <a href="http://www.j-and-s.cn" title="杰升咨询" target="_blank">杰升咨询</a></p>
+                            <a href="#" class="scroll-top"><em>J</em>&s</a>
+                            <p>Copyright &copy; 2017 JoyAndShare</p>
+                            <P><a href="http://www.j-and-s.cn" target="_blank" title="杰升咨询">杰升咨询</a></P>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-12">
                         <div class="location">
                             <h4>Location</h4>
                             <ul>
-                                <li>30 Raffles Ave, <br>Singapore 039803</li>
-                                <li>1 Republic Blvd, <br>Singapore 038975</li>
+                                <li>1, No.436 <br> Rd. Xujiahui</li>
+                                <li> Huangpu <br>SH.</li>
                             </ul>
                         </div>
                     </div>
@@ -418,8 +429,8 @@
                         <div class="contact-info">
                             <h4>More Info</h4>
                             <ul>
-                                <li><em>Phone</em>: 010-020-0340</li>
-                                <li><em>Email</em>: tk@company.co</li>
+                                <li><em>Phone</em>: 021-61014716</li>
+                                <li><em>Email</em>: info@j-and-s.cn</li>
                             </ul>
                         </div>
                     </div>

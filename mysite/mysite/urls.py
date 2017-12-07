@@ -28,4 +28,7 @@ urlpatterns = [
     url(r'^select_company$',learn_views.select_company,name='select_company'),
     url(r'^select_message$',learn_views.select_message,name='select_message'),
     url(r'^select_pic$',learn_views.select_pic,name='select_pic'),
+    url(r'^select_click$',learn_views.select_click,name='select_click'),
+    url(r'^select_lec$',learn_views.select_lec,name='select_lec'),
+    url(r'^insert_message$',learn_views.insert_message,name='insert_message'),
 ]
