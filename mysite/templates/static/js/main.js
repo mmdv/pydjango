@@ -138,7 +138,7 @@ jQuery(document).ready(function($) {
 
         // 改动新增
 
-        // 提交事件
+        // 报名事件
         $('.btn-primary').bind('click',function(event) {
              event.stopPropagation();
           /* Act on the event */
@@ -167,10 +167,11 @@ jQuery(document).ready(function($) {
         function mesCheck(el){
           console.log(el.val())
           if (el.val() == '' ) {
-            el.css("border","1px #000 solid");
+            el.css("border","1px red solid");
           }
         }
 
+        // 公司筛选事件
         $('.company_list').on('click', function(event) {
           event.preventDefault();
           // 删除样式
