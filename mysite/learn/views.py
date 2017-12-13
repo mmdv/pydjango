@@ -13,7 +13,7 @@ def index(request):
     return render(request, 'index.html')
 def insert(request):
     if request.method == 'POST':
-        data = json.loads(request.POST.get('data'))
+        data = json.loads(request.POST['data'])
         print(data,'++++++++++++++++++++')
         print(type(data))
     # 获取id列最大长度

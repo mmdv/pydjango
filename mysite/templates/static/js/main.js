@@ -17,12 +17,12 @@ jQuery(document).ready(function($) {
     console.log(data[1])
   });
 
-  var company_name = [];
-  var history = [];
-  var pics;
+  var company_name = [];//
+  var history = [];//往期回顾
+  var pics; //往期回顾,点击切换图片
   var course_default;//首次默认课程名
-  var feedback;
-  var lecturer;
+  var feedback; //客户留言
+  var lecturer; //讲师
 
   // 最近5期回顾公司名称
   $.ajax({
@@ -138,38 +138,100 @@ jQuery(document).ready(function($) {
 
         // 改动新增
 
-        // 报名事件
-        $('.btn-primary').bind('click',function(event) {
-             event.stopPropagation();
-          /* Act on the event */
-          // 获取所有input值
-          var valArr = $('input[name=textfield2]').map(function(){return $(this).val()}).get();
-          console.log(typeof(valArr))
-          console.log(valArr);
-          // 向后台发出请求
-          //--------------------------
-           $.post('/insert', {'data': JSON.stringify(valArr)}, function(res){
-               if(res){
-                   $('#myModal').hide();
-                   alert('报名成功')
-               }
-            });
-            //----------------------------------
-        });
-
         // 监听文本输入
 
         $("input").bind("input propertychange change",function(event){
-          console.log(9999)
-          mesCheck($(this))
+        //   console.log(9999)
+             $(this).css("border","1px #cad2db solid");
         });
 
+        // 空值检测
         function mesCheck(el){
           console.log(el.val())
           if (el.val() == '' ) {
             el.css("border","1px red solid");
           }
         }
+        // 电话验证
+        function checkPhone(el){
+           var re = /^1\d{10}$/;
+          if(!re.test(el.val())){
+            el.css("border","1px red solid");
+            return false;
+          } else {
+            return true;
+          }
+        }
+        // 邮箱验证
+        function checkEmail(el){
+          re = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+          if(!re.test(el.val())){
+            el.css("border","1px red solid");
+            return false;
+          } else {
+            return true;
+          }
+        }
+        // 报名验证
+        // 失去焦点为空
+        $('input').blur(function(event) {
+          /* Act on the event */
+          // alert(999);
+          mesCheck($(this));
+        });
+        // 电话验证
+        $('#userPhone').bind("input propertychange change",function(event) {
+          /* Act on the event */
+            flagPhoneSign = checkPhone($(this));
+        });
+        // 邮箱验证
+        $('#userEmail').bind("input propertychange change",function(event) {
+          /* Act on the event */
+          flagEmailSign = checkEmail($(this));
+        });
+
+        // 报名事件
+        $('.btn-primary').bind('click', function(event) {
+            event.stopPropagation();
+            /* Act on the event */
+            // 获取所有input值
+
+            // if (flagPhone && flagEmail) {
+
+            // }
+            var valArr = $('input[name=textfield2]').map(function() { return $(this).val() }).get();
+            $.each(valArr, function(index, val) {
+                    /* iterate through array or object */
+                    if (val == '') {
+                        $('input[name=textfield2]').eq(index).css("border", "1px red solid");
+                        $('input[name=textfield2]').eq(index).focus();
+                        alert('请完善填写信息');
+                        return false;
+                    }
+            });
+            if (!flagEmailSign) {
+                $('#userEmail').css("border", "1px red solid");
+                $('#userEmail').focus();
+                  alert('请检查邮箱格式是否正确');
+                  return;
+               }
+            if (!flagPhoneSign) {
+                $('#userPhone').css("border", "1px red solid");
+                $('#userPhone').focus(); 
+                alert('请检查电话信息');
+                return;
+            }
+          // 向后台发出请求
+          // --------------------------
+          valArr = JSON.stringify(valArr);
+           $.post('/insert', {'data': valArr}, function(res){
+               if(res){
+                   $('#myModal').hide();
+                   alert('报名成功');
+               }
+            });
+            //----------------------------------
+        });
 
         // 公司筛选事件
         $('.company_list').on('click', function(event) {
@@ -228,13 +290,45 @@ jQuery(document).ready(function($) {
              });
           });
 
+          // 留言验证
+          // 电话验证
+          $('#phone').bind("input propertychange change",function(event) {
+            /* Act on the event */
+              flagPhoneLeave = checkPhone($(this));
+          });
+          // 邮箱验证
+          $('#email').bind("input propertychange change",function(event) {
+            /* Act on the event */
+            flagEmailLeave = checkEmail($(this));
+          });
           // 留言事件
           $('#leave_message').click(function(event) {
             /* Act on the event */
             var leave_mess;
             leave_mess = $('input[class=form-control]').map(function(){return $(this).val()}).get();
-            
             leave_mess.push($('#message').val());
+            $.each(leave_mess, function(index, val) {
+                    /* iterate through array or object */
+                    if (val == '') {
+                        $('input[class=form-control]').eq(index).css("border", "1px red solid");
+                        $('input[class=form-control]').eq(index).focus();
+                        alert('请完善填写信息');
+                        return false;
+                    }
+            });
+            if (!flagEmailLeave) {
+                $('#email').css("border", "1px red solid");
+                $('#email').focus();
+                  alert('请检查邮箱格式是否正确');
+                  return;
+               }
+            if (!flagPhoneLeave) {
+                $('#phone').css("border", "1px red solid");
+                $('#phone').focus();
+                alert('请检查电话信息');
+                return;
+            }
+            alert('提交成功');
             leave_mess = JSON.stringify(leave_mess);
             console.log(leave_mess);
             // 验证
