@@ -15,7 +15,7 @@
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
         <link rel="stylesheet" href="static/css/bootstrap.min.css">
-        <link rel="stylesheet" href="static/css/bootstrap-theme.min.css">
+        <!-- <link rel="stylesheet" href="static/css/bootstrap-theme.min.css"> -->
         <link rel="stylesheet" href="static/css/fontAwesome.css">
         <link rel="stylesheet" href="static/css/hero-slider.css">
         <link rel="stylesheet" href="static/css/owl-carousel.css">
@@ -29,7 +29,7 @@
     <div id="app">
         <div class="header">
             <div class="container">
-                <nav class="navbar navbar-inverse" role="navigation">
+                <nav class="navbar0 navbar-inverse0" role="navigation">
                     <div class="navbar-header">
                         <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
                             <span class="sr-only">Toggle navigation</span>
@@ -74,20 +74,20 @@
         <section id="about" class="page-section">
             <div  class="container">
                 <div class="row">
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="service-item">
+                    <div class="col-md-3 col-sm-6 col-xs-12"  v-for="val in course_recommend">
+                        <div class="service-item" :id="val.id">
                             <div class="icon">
-                                <img :src=course0.imgurl alt="">
+                                <img :src=val.imgurl alt="">
                             </div>
-                            <h4 v-html="course0.name"></h4>
+                            <h4 v-html="val.name"></h4>
                             <div class="line-dec"></div>
-                            <p v-html="course0.brief"></p>
+                            <p v-html="val.brief"></p>
                             <div class="primary-blue-button">
-                                <a href="javascript:void(0);" data-id="portfolio" data-toggle="modal" data-target="#myModal">点击报名</a>
+                                <a href="javascript:void(0);" name="course_select" data-id="portfolio" data-toggle="modal" data-target="#myModal">点击报名</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12">
+                    <!-- <div class="col-md-3 col-sm-6 col-xs-12">
                          <div class="service-item">
                             <div class="icon">
                                 <img :src=course1.imgurl alt="">
@@ -125,7 +125,7 @@
                                 <a href="javascript:void(0);" data-id="portfolio" data-toggle="modal" data-target="#myModal">点击报名</a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </section>
@@ -311,7 +311,7 @@
                                     <div class="text-content">
                                         <h4 v-html="val.name"></h4>
                                         <span><a href="#">Digital Marketing</a> / <a href="#">John</a> / <a href="#">22 September 2017</a></span>
-                                        <p v-html="val.brief"></p>
+                                        <p v-html="val.brief" class="quotations"></p>
                                     </div>
                                 </div>
                                <!--  <div id="tab2">
@@ -352,7 +352,12 @@
                         <div class="section-heading">
                             <h4>Contact Us</h4>
                             <div class="line-dec"></div>
-                            <p>Donec sit amet commodo arcu. Sed sit amet iaculis mi, vel fermentum nisi. Morbi dui enim, vestibulum non accumsan ac, tempor non nisl.</p>
+                            <p>To be, or not to be: that is the question: 
+                                Whether 'tis nobler in the mind to suffer 
+                                The slings and arrows of outrageous fortune, 
+                                Or to take arms against a sea of troubles, 
+                                And by opposing end them? 
+                            </p>
                             <div class="pop-button">
                                 <h4>给我留言</h4>
                             </div>

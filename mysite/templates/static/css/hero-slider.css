@@ -74,6 +74,20 @@ Main Components
   padding: 2% 10% 2% 20%;
 }
 
+/*课程简介固定*/
+.line-dec + p {
+  min-height: 100px;
+}
+
+/*客户留言*/
+.testimonials-item + p {
+  min-height: 140px;
+}
+
+.text-content {
+  min-height: 196px;
+}
+
 /*
 改动
 */

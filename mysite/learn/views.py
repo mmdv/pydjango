@@ -18,7 +18,11 @@ def insert(request):
         print(type(data))
     # 获取id列最大长度
     # 写入数据库
-    register.objects.create(company=data[0],name=data[1],phone=data[2],email=data[3],position=data[4],count=data[5])
+    try:
+        register.objects.create(company=data[0],name=data[1],phone=data[2],email=data[3],position=data[4],count=data[5],courseid=data[6])
+    except Exception as err:
+        return HttpResponse(False)
+        print(err)
     return HttpResponse(True)
 
 # 显示课程

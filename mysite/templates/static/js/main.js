@@ -1,7 +1,18 @@
 jQuery(document).ready(function($) {
-  var course0;
+  
   // 写一个克隆course
   // 课程报名的请求
+  
+  var course_recommend;
+  var company_name = [];//
+  var history = [];//往期回顾
+  var pics; //往期回顾,点击切换图片
+  var course_default;//首次默认课程名
+  var feedback; //客户留言
+  var lecturer; //讲师
+  var course_select_id;
+
+  // 获取推荐报名课程
   $.ajax({
     url: '/select_course',
     type: 'post',
@@ -10,19 +21,12 @@ jQuery(document).ready(function($) {
   })
   .done(function(data) {
     console.log(typeof(data));
-    course0 = data[0];
-    course1 = data[1];
-    course2 = data[2];
-    course3 = data[3];
-    console.log(data[1])
+    course_recommend = data;
+    // course1 = data[1];
+    // course2 = data[2];
+    // course3 = data[3];
+    console.log(data)
   });
-
-  var company_name = [];//
-  var history = [];//往期回顾
-  var pics; //往期回顾,点击切换图片
-  var course_default;//首次默认课程名
-  var feedback; //客户留言
-  var lecturer; //讲师
 
   // 最近5期回顾公司名称
   $.ajax({
@@ -106,10 +110,7 @@ jQuery(document).ready(function($) {
       //   brief:'Integer hendrerit vehicula mauris, sed pellentesque sem facilisis at. Aliquam vel arcu metus. Nam sem lectus, mattis non tellus et, tincidunt condimentum eros.',
       // }
       // imgUrl: 'static/img/portfolio_item_01.jpg'
-      course0: course0,
-      course1: course1,
-      course2: course2,
-      course3: course3,
+      course_recommend: course_recommend,
       history: history,
       pics:pics,
       course_default:course_default,
@@ -137,6 +138,16 @@ jQuery(document).ready(function($) {
       });
 
         // 改动新增
+
+        // 点击报名获取对应课程id
+        $('a[name=course_select]').click(function(event) {
+          /* Act on the event */
+          course_select_id = $(this).parent().parent().attr('id');
+          // 取消位移问题
+          console.log(course_select_id);
+        });
+
+
 
         // 监听文本输入
 
@@ -190,15 +201,11 @@ jQuery(document).ready(function($) {
           flagEmailSign = checkEmail($(this));
         });
 
-        // 报名事件
+        // 选课报名事件
         $('.btn-primary').bind('click', function(event) {
             event.stopPropagation();
             /* Act on the event */
-            // 获取所有input值
 
-            // if (flagPhone && flagEmail) {
-
-            // }
             var valArr = $('input[name=textfield2]').map(function() { return $(this).val() }).get();
             $.each(valArr, function(index, val) {
                     /* iterate through array or object */
@@ -221,16 +228,18 @@ jQuery(document).ready(function($) {
                 alert('请检查电话信息');
                 return;
             }
+
+            // 加入课程id
+            valArr.push(course_select_id);
           // 向后台发出请求
-          // --------------------------
+
           valArr = JSON.stringify(valArr);
            $.post('/insert', {'data': valArr}, function(res){
                if(res){
                    $('#myModal').hide();
-                   alert('报名成功');
+                   // alert('报名成功');
                }
             });
-            //----------------------------------
         });
 
         // 公司筛选事件
