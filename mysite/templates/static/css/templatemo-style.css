@@ -124,7 +124,13 @@ p {
 	letter-spacing: 0.5px;
 	text-transform: uppercase;
 	text-shadow: none;
-	color: #121212!important;
+	color: #121212 !important;
+	text-decoration: none;
+}
+
+.header.active .navbar-nav>li>a:hover {
+	color: #f89624 !important;
+	text-decoration: none;
 }
 
 .header.active {

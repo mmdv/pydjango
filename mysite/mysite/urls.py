@@ -31,4 +31,5 @@ urlpatterns = [
     url(r'^select_click$',learn_views.select_click,name='select_click'),
     url(r'^select_lec$',learn_views.select_lec,name='select_lec'),
     url(r'^insert_message$',learn_views.insert_message,name='insert_message'),
+    url(r'^get_file$',learn_views.get_file,name='get_file'),
 ]

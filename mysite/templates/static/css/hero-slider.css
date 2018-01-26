@@ -43,6 +43,11 @@ Main Components
   margin: 200px auto;
 }
 
+.navbar-nav>li>a:hover {
+  text-decoration: none !important;
+  color: #f89624 !important;
+}
+
 .modal-body input.txt_input {
     width: 295px;
     height: 36px;

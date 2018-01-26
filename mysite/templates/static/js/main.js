@@ -1,3 +1,30 @@
+// var iMaxFilesize = 2097152; //2M
+// window.fileSelected = function() {
+//     var oFile = document.getElementById('imageFile').files[0];    //读取文件
+//     var rFilter = /^(image\/bmp|image\/gif|image\/jpeg|image\/png|image\/tiff)$/i;
+//     if (!rFilter.test(oFile.type)) {
+//         alert("文件格式必须为图片");
+//         return;
+//     }
+//     if (oFile.size > iMaxFilesize) {
+//         alert("图片大小不能超过2M");
+//         return;
+//     }
+//     var vFD = new FormData(document.getElementById('uploadForm')),    //建立请求和数据
+//         oXHR = new XMLHttpRequest();
+//     oXHR.addEventListener('load', function(resUpload) {
+//         //成功
+//     }, false);
+//     oXHR.addEventListener('error', function() {
+//         //失败
+//     }, false);
+//     oXHR.addEventListener('abort', function() {
+//         //上传中断
+//     }, false);
+//     oXHR.open('POST', actionUrl);
+//     oXHR.send(vFD);
+// };
+
 jQuery(document).ready(function($) {
   
   // 写一个克隆course
@@ -117,7 +144,7 @@ jQuery(document).ready(function($) {
       feedback:feedback,
       lecturer:lecturer,
 
-    }
+    },
   })
 
   'use strict';
@@ -354,9 +381,20 @@ jQuery(document).ready(function($) {
             });
           });
 
-
-
-
+          // 文件上传
+          $('#imageFile').change(function(event) {
+              $.ajax({
+                url:'get_file',
+                type:'POST',
+                cache:false,
+                data:formData,
+                processData:false,
+                contentType:false,
+                crossDomain: true,
+            }).success(function(){
+              console.log('文件上传成功');
+            });
+          });
 
 
 

@@ -1,3 +1,4 @@
+from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.shortcuts import render
 from learn.models import register
@@ -6,9 +7,11 @@ from learn.models import history
 from learn.models import feedback
 from learn.models import lecturer
 from learn.models import message
-
 import json
+from PIL import Image
 #33333333333333333333333333333333333333
+
+@csrf_exempt
 def index(request):
     return render(request, 'index.html')
 def insert(request):
@@ -78,4 +81,19 @@ def insert_message(request):
         # print(data,'----------------')
         message.objects.create(name=data[0],phone=data[1],companyname=data[2],email=data[3],message=data[4])
 
+    return HttpResponse(True)
+
+#保存图片
+@csrf_exempt
+def get_file(request):
+    print('---------')
+    print(request.FILES)
+    #保存图片
+    data = request.FILES['imageFile']
+    img = Image.open(data)
+    try:
+        img.save(r'E:/0k.jpg')
+        print('保存了图片')
+    except:
+        pass
     return HttpResponse(True)

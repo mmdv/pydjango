@@ -1,0 +1,14 @@
+
+
+
+#tag_box {
+	white-space : nowrap;
+	width: 600px;
+	height: 600px;
+	/*background: #000 ;*/
+	border-radius: 50%;
+}
+
+#tag_box a {
+	border: none ;
+}
