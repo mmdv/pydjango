@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^$', tags_views.index,name='index'),#new
     url(r'^select_book$', tags_views.select_book,name='select_book'),#new
     url(r'^select_tags$', tags_views.select_tags,name='select_tags'),#new
+    url(r'^select_chapter$', tags_views.select_chapter,name='select_chapter'),#new
 ]

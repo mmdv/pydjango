@@ -1,58 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
+
 <head>
-	<meta charset="UTF-8">
-	<title>bookTag</title>
-	<link rel=stylesheet href='static/css/tagcloud.css'>
-	<link rel="stylesheet" type="text/css" href="static/css/style.css">
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关键词云</title>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="static/css/htmleaf-demo.css">
+    <link href="static/css/file-explore.css" rel="stylesheet" type="text/css">
 </head>
-<style type="text/css">
-	div {
-		text-align: center;
-	}
-</style>
-<body>
-	<div class="test">
-		<h1>声声慢·寻寻觅觅</h1>
-		<h4>寻寻觅觅，冷冷清清，凄凄惨惨戚戚。</h4>
-		<h4>乍暖还寒时候，最难将息。<h4>
-		<h4>三杯两盏淡酒，怎敌他、晚来风急？<h4>
-		<h4>雁过也，正伤心，却是旧时相识。<h4>
-		<h4>满地黄花堆积。憔悴损，如今有谁堪摘？<h4>
-		<h4>守着窗儿，独自怎生得黑？<h4>
-		<h4>梧桐更兼细雨，到黄昏、点点滴滴。<h4>
-		<h4>这次第，怎一个愁字了得<h4>
-	<div>
-	<div style="height: 400px; width:400px;margin: 0 auto;">
-		<h1>激荡十年,水大鱼大</h1>
-	    <div class="tagcloud">
-	    	<div class="tagcloud" id="tag_box">
-			    <a href="#" class="mou">水大鱼大</a>
-			    <a href="#" class="mou">大资管时代</a>
-			    <a href="#" class="mou">产融商业主义时代</a>
-			    <a href="#" class="mou">养老产业</a>
-			    <a href="#" class="mou">奇点时刻</a>
-			    <a href="#" class="mou">时空中的一个普通物理规则不适用的点</a>
-			    <a href="#" class="mou">机器在智能方面超过人类的那个点</a>
-			    <a href="#" class="mou">预防老年痴呆:谈恋爱,旅游,打麻将</a>
-			    <a href="#" class="mou">企投家</a>
-			    <a href="#" class="mou">百年家族有,百年企业无</a>
-			</div>
-	    </div>
-	</div>
 
+<body>
+    <div class="htmleaf-container">
+        <header class="htmleaf-header">
+            <h1>
+            	云标签书库
+            	<span>
+                    关键词的云标签
+            	</span>
+            </h1>
+        </header>
+        <div class="container">
+            <h1>书目列表</h1>
+            <ul class="file-tree">
+                <!-- <li><a href="#">书目1</a>
+                    <ul>
+                        <li><a href="#">第一章</a>
+                        	<ul>
+                        		<li><a href="#">关键词</a>
+                                    <ul><li><p>自己语言描述</p></li></ul>
+                                </li>
+                        	</ul>
+                        </li>
+                        <li><a href="#">第二章</a>
+                            <ul>
+                                <li><a href="#">关键词</a>
+                                    <ul><li><p>自己语言描述</p></li></ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="#">第三章</a>
+                            <ul>
+                                <li><a href="#">关键词</a>
+                                    <ul><li><p>自己语言描述</p></li></ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#">书目2</a></li> -->
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript" src="static/js/jquery.js"></script>
+    <script type="text/javascript" src="static/js/list.js"></script>
+    <script src="static/js/file-explore.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $(".file-tree").filetree();
+    });
+    </script>
 </body>
-<script src="static/js/tagcloud.js"></script>
-<script type="text/javascript" src="static/js/jquery.js"></script>
-<script type="text/javascript" src="static/js/vue.js"></script>
-<script type="text/javascript" src="static/js/script.js"></script>
-<script type="text/javascript">
-    tagcloud();
-</script>
-<script type="text/javascript">
-        $.ajaxSetup({
-          data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
-        });
-</script>
+
 </html>
