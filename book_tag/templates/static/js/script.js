@@ -1,5 +1,9 @@
-jQuery(document).ready(function($) {
+// tags.html
 
+jQuery(document).ready(function($) {
+	var storage=window.localStorage;
+	var book_id = storage.book_id;
+	var chapter_id = storage.chapter_id;
 	var tags;
 	// 获取关键词标签
 	$.ajax({
@@ -7,7 +11,7 @@ jQuery(document).ready(function($) {
 		type: 'POST',
 		dataType: 'json',
 		async:false,
-		data: {'book_id': '1'},
+		data: {'book_id': book_id,'chapter_id':chapter_id},
 	})
 	.done(function(data) {
 		tags = data;
@@ -29,11 +33,6 @@ jQuery(document).ready(function($) {
 
 // ////////////////////////////////////
 
-/**
- * tagcloud v1.1.1 - http://tagcloud.congm.in
- * Copyright 2016 @ Cong Min , Inc.
- * MIT License - https://github.com/mcc108/tagcloud
- */
 ;window.tagcloud = (function(win, doc) { // ns
     // 判断对象
     function isObject (obj) {

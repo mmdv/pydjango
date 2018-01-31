@@ -35,4 +35,5 @@ class book_chapter(models.Model):
 class book_tags(models.Model):
     id = models.AutoField(max_length=11, primary_key=True)
     book_id = models.IntegerField(verbose_name='书目id')
+    chapter_id = models.IntegerField(verbose_name='章节id')
     text = models.TextField(max_length=140,verbose_name="标签")
