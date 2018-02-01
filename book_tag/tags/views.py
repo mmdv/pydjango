@@ -15,7 +15,7 @@ def tags(request):
 
 # 获取全部书名列表
 def select_book(request):
-    book_info = list(book_name.objects.values('id', 'name', 'author','time'))
+    book_info = list(book_name.objects.values('id', 'name', 'author'))
     print(book_info)
     return HttpResponse(json.dumps(book_info))
 
